@@ -4,6 +4,37 @@ namespace jogoDaForca.ConsoleApp
 {
     internal class Program
     {
+
+        static void cabecalhoJogo(int qtdErros,int totalTentativas,string historicoChutesJoin, char[]letrasEncontradas)
+        {
+            string cabecaDoBoneco = qtdErros >= 1 ? " O " : " ";
+            string tronco = qtdErros >= 2 ? "x" : " ";
+            string troncoBaixo = qtdErros >= 2 ? " x " : " ";
+            string bracoEsquerdo = qtdErros >= 3 ? "/" : " ";
+            string bracoDireito = qtdErros >= 4 ? @"\" : " ";
+            string pernas = qtdErros >= totalTentativas ? "/ \\" : " ";
+
+            Console.Clear();
+            //Console.WriteLine("gabariro: "+ palavraSecreta);
+            Console.WriteLine("----------------------------------------------");
+            Console.WriteLine("              Jogo da Forca");
+            Console.WriteLine("----------------------------------------------");
+            Console.WriteLine(" ___________        ");
+            Console.WriteLine(" |/        |        ");
+            Console.WriteLine(" |        {0}       ", cabecaDoBoneco);
+            Console.WriteLine(" |        {0}{1}{2} ", bracoEsquerdo, tronco, bracoDireito);
+            Console.WriteLine(" |        {0}       ", troncoBaixo);
+            Console.WriteLine(" |        {0}       ", pernas);
+            Console.WriteLine(" |                  ");
+            Console.WriteLine(" |                  ");
+            Console.WriteLine("_|____              ");
+
+            Console.WriteLine($"\nErros do jogador: {qtdErros} de {totalTentativas}");
+            Console.WriteLine("\nHistórico de tentativas: " + historicoChutesJoin);
+            Console.WriteLine("----------------------------------------------");
+            Console.WriteLine("\nPalavra escolhida: " + String.Join(" ", letrasEncontradas));
+        }
+
         static void Main(string[] args)
         {
             while (true) {
@@ -20,7 +51,7 @@ namespace jogoDaForca.ConsoleApp
                 string[] chutesRealizados = new string[100];
                 int contadorChutes = 0;
 
-                char[] letrasEncontradas = new char[palavraSecreta.Length];
+              char[] letrasEncontradas = new char[palavraSecreta.Length];
 
                 for (int caractere = 0; caractere < letrasEncontradas.Length; caractere++)
                 {
@@ -35,6 +66,7 @@ namespace jogoDaForca.ConsoleApp
                 do
                 {
                 string historicoChutesJoin = string.Join(", ", chutesRealizados.Where(n => !string.IsNullOrEmpty(n)));
+                    cabecalhoJogo(qtdErros, totalTentativas, historicoChutesJoin, letrasEncontradas);
                     string cabecaDoBoneco = qtdErros >= 1 ? " o " : " ";
                     string tronco = qtdErros >= 2 ? "x" : " ";
                     string troncoBaixo = qtdErros >= 2 ? " x " : " ";
@@ -60,7 +92,7 @@ namespace jogoDaForca.ConsoleApp
                     Console.WriteLine($"\nErros do jogador: {qtdErros} de {totalTentativas}");
                     Console.WriteLine("\nHistórico de tentativas: " + historicoChutesJoin);
                     Console.WriteLine("----------------------------------------------");
-                    Console.WriteLine("Palavra escolhida: " + String.Join(" ", letrasEncontradas));
+                    Console.WriteLine("Palavra escolhida: " + String.Join(" ", letrasEncontradas)+"\n");
 
                     Console.Write("Digite uma letra: ");
                     char chute = Console.ReadLine().ToUpper()[0];
@@ -113,6 +145,9 @@ namespace jogoDaForca.ConsoleApp
                     }
                     else if (jogadorEnforcou)
                     {
+                        qtdErros -= 1;
+                        Console.Clear();
+                        cabecalhoJogo(qtdErros, totalTentativas, historicoChutesJoin, letrasEncontradas);
                         Console.WriteLine("Errou! A palavra era "+palavraSecreta);
                         Console.WriteLine("Tente Novamente!");
                         Console.ReadLine();
