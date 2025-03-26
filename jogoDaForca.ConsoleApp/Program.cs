@@ -1,4 +1,6 @@
-﻿namespace jogoDaForca.ConsoleApp
+﻿using System;
+
+namespace jogoDaForca.ConsoleApp
 {
     internal class Program
     {
@@ -21,8 +23,12 @@
 
                 do
                 {
-                    string dicaPalavra = String.Join(" ", letrasEncontradas);
-                    jogadorEnforcou = qtdErros > 5;
+                    string cabecaDoBoneco = qtdErros >= 1 ? " o " : " ";
+                    string tronco = qtdErros >= 2 ? "x" : " ";
+                    string troncoBaixo = qtdErros >= 2 ? " x " : " ";
+                    string bracoEsquerdo = qtdErros >= 3 ? "/" : " ";
+                    string bracoDireito = qtdErros >= 4 ? @"\" : " ";
+                    string pernas = qtdErros >= 5 ? "/ \\" : " ";
 
                     Console.Clear();
                     Console.WriteLine("----------------------------------------------");
@@ -30,10 +36,10 @@
                     Console.WriteLine("----------------------------------------------");
                     Console.WriteLine(" ___________        ");
                     Console.WriteLine(" |/        |        ");
-                    Console.WriteLine(" |                  ");
-                    Console.WriteLine(" |                  ");
-                    Console.WriteLine(" |                  ");
-                    Console.WriteLine(" |                  ");
+                    Console.WriteLine(" |        {0}       ",cabecaDoBoneco);
+                    Console.WriteLine(" |        {0}{1}{2} ",bracoEsquerdo,tronco,bracoDireito);
+                    Console.WriteLine(" |        {0}       ",troncoBaixo);
+                    Console.WriteLine(" |        {0}       ",pernas);
                     Console.WriteLine(" |                  ");
                     Console.WriteLine(" |                  ");
                     Console.WriteLine("_|____              ");
@@ -41,6 +47,7 @@
                     Console.WriteLine("\nErros do jogador: " + qtdErros);
                     Console.WriteLine("----------------------------------------------");
                     Console.WriteLine("Palavra escolhida: " + String.Join(" ", letrasEncontradas));
+                    
                     Console.Write("Digite uma letra: ");
                     char chute = Console.ReadLine().ToUpper()[0];
                     Console.WriteLine(chute);
@@ -64,17 +71,18 @@
                         qtdErros++;
                     }
 
-                    dicaPalavra = String.Join(" ", letrasEncontradas);
+                    string palavraEncontrada = String.Join(" ", letrasEncontradas);//
 
-                    jogadorAcertou = new string(letrasEncontradas) == palavraSecreta;
+                    jogadorAcertou = palavraEncontrada == palavraSecreta;
 
-                    jogadorEnforcou = qtdErros >= 5;
+
+                    jogadorEnforcou = qtdErros > 5;
 
                     if (jogadorAcertou)
                     {
-                        Console.WriteLine("Acertou! A palavra era "+palavraSecreta);
-                        Console.ReadLine();
-                        continue;
+                        Console.WriteLine("----------------------------------------------");
+                        Console.WriteLine($"Acertou! A palavra secreta era {palavraSecreta}, parabéns!");
+                        Console.WriteLine("----------------------------------------------");
                     }
                     else if (jogadorEnforcou)
                     {
