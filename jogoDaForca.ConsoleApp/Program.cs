@@ -9,7 +9,7 @@ namespace jogoDaForca.ConsoleApp
             while (true) {
                 string palavraSecreta = "MELANCIA";
 
-                char[] letrasEncontradas = new char[palavraSecreta.Length];
+char[] letrasEncontradas = new char[palavraSecreta.Length];
 
                 for (int caractere = 0; caractere < letrasEncontradas.Length; caractere++)
                 {
@@ -110,6 +110,13 @@ namespace jogoDaForca.ConsoleApp
 
                 }
                 while (jogadorAcertou==false && jogadorEnforcou==false);
+
+                Console.Write("Deseja continuar? (S/N): ");
+
+                string opcaoContinuar = Console.ReadLine().ToUpper();
+
+                if (opcaoContinuar != "S")
+                    break;
 
             }
         }
