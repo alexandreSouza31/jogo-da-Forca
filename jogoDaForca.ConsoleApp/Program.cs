@@ -71,9 +71,7 @@ namespace jogoDaForca.ConsoleApp
                         qtdErros++;
                     }
 
-                    string palavraEncontrada = String.Join(" ", letrasEncontradas);//
-
-                    jogadorAcertou = palavraEncontrada == palavraSecreta;
+                    jogadorAcertou = new string(letrasEncontradas) == palavraSecreta;
 
 
                     jogadorEnforcou = qtdErros > 5;
