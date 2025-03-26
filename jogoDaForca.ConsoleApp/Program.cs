@@ -7,9 +7,17 @@ namespace jogoDaForca.ConsoleApp
         static void Main(string[] args)
         {
             while (true) {
-                string palavraSecreta = "MELANCIA";
+                string[] frutas = {"ABACATE","ABACAXI","ACEROLA","ACAI","ARACA","ABACATE","BACABA","BACURI","BANANA",
+                    "CAJA","CAJU","CARAMBOLA","CUPUACU","GRAVIOLA","GOIABA","JABUTICABA","JENIPAPO",
+                    "MACA","MANGABA","MANGA","MARACUJA","MURICI","PEQUI","PITANGA","PITAYA","SAPOTI","TANGERINA","UMBU","UVA","UVAIA"
+                };
 
-char[] letrasEncontradas = new char[palavraSecreta.Length];
+                Random geradorDeFrutas = new Random();
+                int indiceAleatorio = geradorDeFrutas.Next(frutas.Length);
+                string palavraSecreta = frutas[indiceAleatorio];
+
+
+                char[] letrasEncontradas = new char[palavraSecreta.Length];
 
                 for (int caractere = 0; caractere < letrasEncontradas.Length; caractere++)
                 {
@@ -31,6 +39,7 @@ char[] letrasEncontradas = new char[palavraSecreta.Length];
                     string pernas = qtdErros >= 5 ? "/ \\" : " ";
 
                     Console.Clear();
+                    //Console.WriteLine("gabariro: "+ palavraSecreta);
                     Console.WriteLine("----------------------------------------------");
                     Console.WriteLine("              Jogo da Forca");
                     Console.WriteLine("----------------------------------------------");
