@@ -1,1 +1,1 @@
-# jogoDaForca
+﻿# jogoDaForca
