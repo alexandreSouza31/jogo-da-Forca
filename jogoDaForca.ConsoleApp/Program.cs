@@ -5,7 +5,7 @@ namespace jogoDaForca.ConsoleApp
     internal class Program
     {
 
-        static void cabecalhoJogo(int qtdErros,int totalTentativas,string historicoChutesJoin, char[]letrasEncontradas)
+        static void cabecalhoJogo(int qtdErros,int totalTentativas,string historicoChutesJoin, char[]letrasEncontradas, string categoria)
         {
             string cabecaDoBoneco = qtdErros >= 1 ? " O " : " ";
             string tronco = qtdErros >= 2 ? "x" : " ";
@@ -27,31 +27,98 @@ namespace jogoDaForca.ConsoleApp
             Console.WriteLine(" |        {0}       ", pernas);
             Console.WriteLine(" |                  ");
             Console.WriteLine(" |                  ");
-            Console.WriteLine("_|____              ");
+            Console.WriteLine($"|{String.Join(' ', letrasEncontradas)}              ");
 
             Console.WriteLine($"\nErros do jogador: {qtdErros} de {totalTentativas}");
             Console.WriteLine("\nHistórico de tentativas: " + historicoChutesJoin);
+            Console.WriteLine($"Categoria: {categoria}");
             Console.WriteLine("----------------------------------------------");
-            Console.WriteLine("\nPalavra escolhida: " + String.Join(" ", letrasEncontradas));
+            //Console.WriteLine("\nPalavra escolhida: " + String.Join(" ", letrasEncontradas));
+        }
+
+        static char  escolherCategoriaPalavra()
+        {
+            while (true) 
+            {
+                Console.Clear();
+                Console.WriteLine("----------------------------------------------");
+                Console.WriteLine("              Jogo da Forca");
+                Console.WriteLine("----------------------------------------------");
+                Console.WriteLine("Escolha uma categoria de palavra:");
+                Console.WriteLine("F - Frutas");
+                Console.WriteLine("A - Animais");
+                Console.WriteLine("P - Países");
+
+                string palavraUsuarioImput = Console.ReadLine().ToUpper();
+                if (palavraUsuarioImput.Length == 0) continue;
+
+                char categoriaPalavra = palavraUsuarioImput[0];
+
+                if (categoriaPalavra== 'F' || categoriaPalavra == 'A' || categoriaPalavra == 'P')
+                {
+                    return categoriaPalavra;
+                }
+                    Console.Write("Escolha uma categoria válida! Pressione Enter para tentar novamente.");
+                Console.ReadLine();
+
+            }
         }
 
         static void Main(string[] args)
         {
             while (true) {
+
+                char metodoCategoriaPalavra = escolherCategoriaPalavra();
+
+                string categoria = "";
+                if (metodoCategoriaPalavra == 'F') categoria = "Fruta";
+
+                else if (metodoCategoriaPalavra == 'A') categoria = "Animal";
+
+                else categoria = "País";
+
                 string[] frutas = {"ABACATE","ABACAXI","ACEROLA","ACAI","ARACA","ABACATE","BACABA","BACURI","BANANA",
                     "CAJA","CAJU","CARAMBOLA","CUPUACU","GRAVIOLA","GOIABA","JABUTICABA","JENIPAPO",
                     "MACA","MANGABA","MANGA","MARACUJA","MURICI","PEQUI","PITANGA","PITAYA","SAPOTI","TANGERINA","UMBU","UVA","UVAIA"
                 };
+                
+                string[] animais = {"ABELHA", "AGUIA", "ARANHA", "ARRAIA", "BALEIA", "CACHORRO", "CANGURU", "CAVALO", "COBRA", 
+                    "CROCODILO", "ELEFANTE", "FALCAO", "FLAMINGO", "FORMIGA", "GATO", "GIRAFA", "GOLFINHO", "HIPOPOTAMO", "JACARE",
+                    "LEMURE", "LEAO", "LOBO", "MACACO", "PINGUIM", "PEIXE", "RINOCERONTE", "TARTARUGA", "TIGRE", "URSO", "ZEBRA"
+                };
 
-                Random geradorDeFrutas = new Random();
-                int indiceAleatorio = geradorDeFrutas.Next(frutas.Length);
-                string palavraSecreta = frutas[indiceAleatorio];
+                string[] paises = {"AFEGANISTAO", "ALEMANHA", "ANGOLA", "ARGENTINA", "AUSTRALIA", "BRASIL", "CANADA", "CHINA", "EGITO", 
+                    "ESPANHA", "ESTADOS UNIDOS", "FRANCA", "GRECIA", "INDIA", "INDONESIA", "IRA", "ITALIA", "JAPAO", "MEXICO", "MOCAMBIQUE",
+                    "NIGERIA", "NOVA ZELANDIA", "PAQUISTAO", "PERU", "PORTUGAL", "REINO UNIDO", "RUSSIA", "SUECIA", "TAILANDIA", "TURQUIA"
+                };
+
+                Random geradorDePalavras = new Random();
+                int indiceAleatorio = 0;
+                string palavraSecreta = "";
+
+                if (categoria == "Fruta") 
+                {
+                    indiceAleatorio = geradorDePalavras.Next(frutas.Length);
+                    palavraSecreta = frutas[indiceAleatorio];
+                }
+
+                else if (categoria == "Animal") 
+                {
+                    indiceAleatorio = geradorDePalavras.Next(animais.Length);
+                    palavraSecreta = animais[indiceAleatorio];
+                }
+
+                else 
+                { indiceAleatorio = geradorDePalavras.Next(paises.Length);
+                    palavraSecreta = paises[indiceAleatorio];
+                }
+
                 int totalTentativas = 5;
 
                 string[] chutesRealizados = new string[100];
                 int contadorChutes = 0;
 
-              char[] letrasEncontradas = new char[palavraSecreta.Length];
+                char[] letrasEncontradas = new char[palavraSecreta.Length];
 
                 for (int caractere = 0; caractere < letrasEncontradas.Length; caractere++)
                 {
@@ -62,104 +129,82 @@ namespace jogoDaForca.ConsoleApp
                 bool jogadorEnforcou = false;
                 bool jogadorAcertou = false;
 
-
-                do
-                {
-                string historicoChutesJoin = string.Join(", ", chutesRealizados.Where(n => !string.IsNullOrEmpty(n)));
-                    cabecalhoJogo(qtdErros, totalTentativas, historicoChutesJoin, letrasEncontradas);
-                    string cabecaDoBoneco = qtdErros >= 1 ? " o " : " ";
-                    string tronco = qtdErros >= 2 ? "x" : " ";
-                    string troncoBaixo = qtdErros >= 2 ? " x " : " ";
-                    string bracoEsquerdo = qtdErros >= 3 ? "/" : " ";
-                    string bracoDireito = qtdErros >= 4 ? @"\" : " ";
-                    string pernas = qtdErros >= totalTentativas ? "/ \\" : " ";
-
-                    Console.Clear();
-                    //Console.WriteLine("gabariro: "+ palavraSecreta);
-                    Console.WriteLine("----------------------------------------------");
-                    Console.WriteLine("              Jogo da Forca");
-                    Console.WriteLine("----------------------------------------------");
-                    Console.WriteLine(" ___________        ");
-                    Console.WriteLine(" |/        |        ");
-                    Console.WriteLine(" |        {0}       ", cabecaDoBoneco);
-                    Console.WriteLine(" |        {0}{1}{2} ", bracoEsquerdo, tronco, bracoDireito);
-                    Console.WriteLine(" |        {0}       ", troncoBaixo);
-                    Console.WriteLine(" |        {0}       ", pernas);
-                    Console.WriteLine(" |                  ");
-                    Console.WriteLine(" |                  ");
-                    Console.WriteLine("_|____              ");
-
-                    Console.WriteLine($"\nErros do jogador: {qtdErros} de {totalTentativas}");
-                    Console.WriteLine("\nHistórico de tentativas: " + historicoChutesJoin);
-                    Console.WriteLine("----------------------------------------------");
-                    Console.WriteLine("Palavra escolhida: " + String.Join(" ", letrasEncontradas)+"\n");
-
-                    Console.Write("Digite uma letra: ");
-                    char chute = Console.ReadLine().ToUpper()[0];
-                    Console.WriteLine(chute);
-
-                    if (Array.Exists(chutesRealizados, n => n == chute.ToString()) && !palavraSecreta.Contains(chute))
+                     
+                    do
                     {
-                        Console.WriteLine($"\n{chute} já foi digitado, e é diferente do sorteado!", "\n");
-                        Console.Write("Digite [Enter] para continuar:");
-                        Console.ReadLine();
-                        continue;
-                    }else if(Array.Exists(chutesRealizados, n => n == chute.ToString()) && palavraSecreta.Contains(chute))
-                    {
-                        Console.WriteLine($"\n{chute} já foi digitado, e está na palavra!Digite outra letra!", "\n");
-                        Console.Write("Digite [Enter] para continuar:");
-                        Console.ReadLine();
-                    }
+                        string historicoChutesJoin = string.Join(", ", chutesRealizados.Where(n => !string.IsNullOrEmpty(n)));
+                        cabecalhoJogo(qtdErros, totalTentativas, historicoChutesJoin, letrasEncontradas,categoria);
 
 
-                    chutesRealizados[contadorChutes++] = chute.ToString();
+                        Console.Write("Digite uma letra: ");
+                        char chute = Console.ReadLine().ToUpper()[0];
+                        Console.WriteLine(chute);
 
-                    bool letraFoiEncontrada=false;
-
-                    for(int contador = 0; contador < palavraSecreta.Length; contador++)
-                    {
-                        char letraAtual = palavraSecreta[contador];
-
-                        if (chute == letraAtual)
+                        if (Array.Exists(chutesRealizados, n => n == chute.ToString()) && !palavraSecreta.Contains(chute))
                         {
-                            letrasEncontradas[contador] = letraAtual;
-                            letraFoiEncontrada = true;
+                            Console.WriteLine($"\n{chute} já foi digitado, e é diferente do sorteado!", "\n");
+                            Console.Write("Digite [Enter] para continuar:");
+                            Console.ReadLine();
+                            continue;
                         }
+                        else if (Array.Exists(chutesRealizados, n => n == chute.ToString()) && palavraSecreta.Contains(chute))
+                        {
+                            Console.WriteLine($"\n{chute} já foi digitado, e está na palavra!Digite outra letra!", "\n");
+                            Console.Write("Digite [Enter] para continuar:");
+                            Console.ReadLine();
+                        }
+
+
+                        chutesRealizados[contadorChutes++] = chute.ToString();
+
+                        bool letraFoiEncontrada = false;
+
+                        for (int contador = 0; contador < palavraSecreta.Length; contador++)
+                        {
+                            char letraAtual = palavraSecreta[contador];
+
+                            if (chute == letraAtual)
+                            {
+                                letrasEncontradas[contador] = letraAtual;
+                                letraFoiEncontrada = true;
+                            }
+                        }
+
+                        if (letraFoiEncontrada == false && !jogadorAcertou)
+                        {
+                            qtdErros++;
+                        }
+
+                        jogadorAcertou = new string(letrasEncontradas) == palavraSecreta;
+
+
+                        jogadorEnforcou = qtdErros > totalTentativas;
+
+                        if (jogadorAcertou)
+                        {
+                            Console.WriteLine("----------------------------------------------");
+                            Console.WriteLine($"Conseguiu! A palavra secreta era {palavraSecreta}, parabéns!");
+                            Console.WriteLine("----------------------------------------------");
+                        }
+                        else if (jogadorEnforcou)
+                        {
+                            qtdErros -= 1;
+                            Console.Clear();
+                            cabecalhoJogo(qtdErros, totalTentativas, historicoChutesJoin, letrasEncontradas, categoria);
+                            Console.WriteLine("Você perdeu! A palavra era " + palavraSecreta);
+                            Console.WriteLine("Tente Novamente!");
+                            Console.ReadLine();
+
+                        }
+
                     }
-
-                    if (letraFoiEncontrada == false && !jogadorAcertou)
-                    {
-                        qtdErros++;
-                    }
-
-                    jogadorAcertou = new string(letrasEncontradas) == palavraSecreta;
-
-
-                    jogadorEnforcou = qtdErros > totalTentativas;
-
-                    if (jogadorAcertou)
-                    {
-                        Console.WriteLine("----------------------------------------------");
-                        Console.WriteLine($"Acertou! A palavra secreta era {palavraSecreta}, parabéns!");
-                        Console.WriteLine("----------------------------------------------");
-                    }
-                    else if (jogadorEnforcou)
-                    {
-                        qtdErros -= 1;
-                        Console.Clear();
-                        cabecalhoJogo(qtdErros, totalTentativas, historicoChutesJoin, letrasEncontradas);
-                        Console.WriteLine("Errou! A palavra era "+palavraSecreta);
-                        Console.WriteLine("Tente Novamente!");
-                        Console.ReadLine();
-
-                    }
-
-                }
-                while (jogadorAcertou==false && jogadorEnforcou==false);
+                    while (jogadorAcertou == false && jogadorEnforcou == false);
 
                 Console.Write("Deseja continuar? (S/N): ");
 
                 string opcaoContinuar = Console.ReadLine().ToUpper();
+                if (opcaoContinuar.Length == 0) continue;
+
 
                 if (opcaoContinuar != "S")
                     break;
