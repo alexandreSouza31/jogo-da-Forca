@@ -207,9 +207,9 @@ namespace jogoDaForca.ConsoleApp
                      }
                      else if (jogadorEnforcou)
                      {
-                        qtdErros -= 1;
-                        Console.Clear();
-                        cabecalhoJogo(qtdErros, totalTentativas, historicoChutesJoin, letrasEncontradas, categoria);
+                        string historicoChutesJoinAtt = string.Join(", ", chutesRealizados.Where(n => !string.IsNullOrEmpty(n)));
+
+                        cabecalhoJogo(qtdErros, totalTentativas, historicoChutesJoinAtt, letrasEncontradas, categoria);
                         Console.WriteLine("Você perdeu! A palavra era " + palavraSecreta);
                         Console.WriteLine("Tente Novamente!");
                         Console.ReadLine();
