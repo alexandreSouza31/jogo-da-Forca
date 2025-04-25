@@ -100,10 +100,9 @@ namespace jogoDaForca.ConsoleApp
         {
             char metodoCategoriaPalavra = EscolherCategoria();
 
-            string categoria = "";
-            if (metodoCategoriaPalavra == 'F') categoria = "Fruta";
-            else if (metodoCategoriaPalavra == 'A') categoria = "Animal";
-            else categoria = "País";
+            if (metodoCategoriaPalavra == 'F') Exibir.categoria = "Fruta";
+            else if (metodoCategoriaPalavra == 'A') Exibir.categoria = "Animal";
+            else Exibir.categoria = "País";
 
             Categorias categorias = new Categorias();
 
@@ -111,12 +110,12 @@ namespace jogoDaForca.ConsoleApp
             int indiceAleatorio = 0;
             string palavraEscolhida = "";
 
-            if (categoria == "Fruta")
+            if (Exibir.categoria == "Fruta")
             {
                 indiceAleatorio = geradorDePalavras.Next(categorias.frutas.Length);
                 palavraEscolhida = categorias.frutas[indiceAleatorio];
             }
-            else if (categoria == "Animal")
+            else if (Exibir.categoria == "Animal")
             {
                 indiceAleatorio = geradorDePalavras.Next(categorias.animais.Length);
                 palavraEscolhida = categorias.animais[indiceAleatorio];
@@ -138,7 +137,8 @@ namespace jogoDaForca.ConsoleApp
             {
                 string palavraSecreta = Palavra.EscolherPalavra();
 
-                int totalTentativas = 5;
+                int totalTentativas = 6;
+                Exibir.totalTentativas=totalTentativas;
                 string[] chutesRealizados = new string[100];
                 int contadorChutes = 0;
 
