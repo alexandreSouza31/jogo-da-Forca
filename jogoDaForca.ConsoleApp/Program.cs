@@ -55,7 +55,19 @@ namespace jogoDaForca.ConsoleApp
             Console.WriteLine("----------------------------------------------");
         }
 
-        public static char EscolherCategoriaPalavra()
+        public static string DesejaContinuar()
+        {
+            Console.Write("Deseja continuar? (S/N): ");
+
+            string opcaoContinuar = Console.ReadLine().ToUpper();
+            if (opcaoContinuar.Length == 0) ;
+            return opcaoContinuar;
+        }
+    }
+
+    public class Palavra
+    {
+        public static char EscolherCategoria()
         {
             //CabecalhoJogo();
 
@@ -84,13 +96,37 @@ namespace jogoDaForca.ConsoleApp
             }
         }
 
-        public static string DesejaContinuar()
+        public static string EscolherPalavra()
         {
-            Console.Write("Deseja continuar? (S/N): ");
+            char metodoCategoriaPalavra = EscolherCategoria();
 
-            string opcaoContinuar = Console.ReadLine().ToUpper();
-            if (opcaoContinuar.Length == 0) ;
-            return opcaoContinuar;
+            string categoria = "";
+            if (metodoCategoriaPalavra == 'F') categoria = "Fruta";
+            else if (metodoCategoriaPalavra == 'A') categoria = "Animal";
+            else categoria = "País";
+
+            Categorias categorias = new Categorias();
+
+            Random geradorDePalavras = new Random();
+            int indiceAleatorio = 0;
+            string palavraEscolhida = "";
+
+            if (categoria == "Fruta")
+            {
+                indiceAleatorio = geradorDePalavras.Next(categorias.frutas.Length);
+                palavraEscolhida = categorias.frutas[indiceAleatorio];
+            }
+            else if (categoria == "Animal")
+            {
+                indiceAleatorio = geradorDePalavras.Next(categorias.animais.Length);
+                palavraEscolhida = categorias.animais[indiceAleatorio];
+            }
+            else
+            {
+                indiceAleatorio = geradorDePalavras.Next(categorias.paises.Length);
+                palavraEscolhida = categorias.paises[indiceAleatorio];
+            }
+            return palavraEscolhida;
         }
     }
 
@@ -100,34 +136,7 @@ namespace jogoDaForca.ConsoleApp
         {
             while (true)
             {
-                char metodoCategoriaPalavra = Exibir.EscolherCategoriaPalavra();
-
-                string categoria = "";
-                if (metodoCategoriaPalavra == 'F') categoria = "Fruta";
-                else if (metodoCategoriaPalavra == 'A') categoria = "Animal";
-                else categoria = "País";
-
-                Categorias categorias = new Categorias();
-
-                Random geradorDePalavras = new Random();
-                int indiceAleatorio = 0;
-                string palavraSecreta = "";
-
-                if (categoria == "Fruta")
-                {
-                    indiceAleatorio = geradorDePalavras.Next(categorias.frutas.Length);
-                    palavraSecreta = categorias.frutas[indiceAleatorio];
-                }
-                else if (categoria == "Animal")
-                {
-                    indiceAleatorio = geradorDePalavras.Next(categorias.animais.Length);
-                    palavraSecreta = categorias.animais[indiceAleatorio];
-                }
-                else
-                {
-                    indiceAleatorio = geradorDePalavras.Next(categorias.paises.Length);
-                    palavraSecreta = categorias.paises[indiceAleatorio];
-                }
+                string palavraSecreta = Palavra.EscolherPalavra();
 
                 int totalTentativas = 5;
                 string[] chutesRealizados = new string[100];
