@@ -199,25 +199,7 @@ namespace jogoDaForca.ConsoleApp
                 Palavra.EscolherPalavra();
                 Array.Clear(Palavra.chutesRealizados, 0, Palavra.chutesRealizados.Length);
                 PrepararRodada();
-
-                bool jogadorEnforcou = false;
-
-                do
-                {
-                    Exibir.historicoChutesJoin = string.Join(", ", Palavra.chutesRealizados.Where(n => !string.IsNullOrEmpty(n)));
-                    Exibir.CabecalhoJogo();
-
-                    Console.Write("Digite uma letra ou a palavra: ");
-                    string chuteUsuario = Console.ReadLine().ToUpper();
-                    if (string.IsNullOrWhiteSpace(chuteUsuario)) continue;
-
-                    if (chuteUsuario.Length == 1) Palavra.TentarLetra(chuteUsuario);
-                    else Palavra.TentarPalavra(chuteUsuario);
-
-                    jogadorEnforcou = Exibir.qtdErros >= Exibir.totalTentativas;
-                    Exibir.MensagemFinal(jogadorEnforcou);
-                }
-                while (Palavra.jogadorAcertou == false && jogadorEnforcou == false);
+                IniciarPartida();
 
                 string opcaoContinuar = Exibir.DesejaContinuar();
                 if (opcaoContinuar != "S") break;
@@ -240,6 +222,26 @@ namespace jogoDaForca.ConsoleApp
             }
         }
 
-        static void 
+        static void IniciarPartida()
+        {
+            bool jogadorEnforcou = false;
+
+            do
+            {
+                Exibir.historicoChutesJoin = string.Join(", ", Palavra.chutesRealizados.Where(n => !string.IsNullOrEmpty(n)));
+                Exibir.CabecalhoJogo();
+
+                Console.Write("Digite uma letra ou a palavra: ");
+                string chuteUsuario = Console.ReadLine().ToUpper();
+                if (string.IsNullOrWhiteSpace(chuteUsuario)) continue;
+
+                if (chuteUsuario.Length == 1) Palavra.TentarLetra(chuteUsuario);
+                else Palavra.TentarPalavra(chuteUsuario);
+
+                jogadorEnforcou = Exibir.qtdErros >= Exibir.totalTentativas;
+                Exibir.MensagemFinal(jogadorEnforcou);
+            }
+            while (Palavra.jogadorAcertou == false && jogadorEnforcou == false);
+        }
     }
 }
