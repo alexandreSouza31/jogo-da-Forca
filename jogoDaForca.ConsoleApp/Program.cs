@@ -198,17 +198,8 @@ namespace jogoDaForca.ConsoleApp
             {
                 Palavra.EscolherPalavra();
                 Array.Clear(Palavra.chutesRealizados, 0, Palavra.chutesRealizados.Length);
-                Palavra.jogadorAcertou = false;
-                Exibir.totalTentativas = 6;
-                Palavra.contadorChutes = 0;
+                IniciarRodada();
 
-                Exibir.letrasEncontradas = new char[Palavra.palavraSecreta.Length];
-                for (int i = 0; i < Exibir.letrasEncontradas.Length; i++)
-                {
-                    if (Palavra.palavraSecreta[i] == ' ') Exibir.letrasEncontradas[i] = ' ';
-                    else Exibir.letrasEncontradas[i] = '_';
-                }
-                Exibir.qtdErros = 0;
                 bool jogadorEnforcou = false;
 
                 do
@@ -233,5 +224,21 @@ namespace jogoDaForca.ConsoleApp
                 continue;
             }
         }
+
+        static void IniciarRodada()
+        {
+            Palavra.jogadorAcertou = false;
+            Exibir.totalTentativas = 6;
+            Palavra.contadorChutes = 0;
+            Exibir.qtdErros = 0;
+
+            Exibir.letrasEncontradas = new char[Palavra.palavraSecreta.Length];
+            for (int i = 0; i < Exibir.letrasEncontradas.Length; i++)
+            {
+                if (Palavra.palavraSecreta[i] == ' ') Exibir.letrasEncontradas[i] = ' ';
+                else Exibir.letrasEncontradas[i] = '_';
+            }
+        }
+
     }
 }
