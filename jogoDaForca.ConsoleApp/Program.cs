@@ -2,6 +2,23 @@
 
 namespace jogoDaForca.ConsoleApp
 {
+    public class Categorias
+    {
+        public string[] frutas = { "ABACATE", "ABACAXI", "ACEROLA", "ACAI", "ARACA", "BACABA", "BACURI", "BANANA",
+                    "CAJA", "CAJU", "CARAMBOLA", "CUPUACU", "GRAVIOLA", "GOIABA", "JABUTICABA", "JENIPAPO",
+                    "MACA", "MANGABA", "MANGA", "MARACUJA", "MURICI", "PEQUI", "PITANGA", "PITAYA", "SAPOTI", "TANGERINA", "UMBU", "UVA", "UVAIA"
+                };
+
+        public string[] animais = { "ABELHA", "AGUIA", "ARANHA", "ARRAIA", "BALEIA", "CACHORRO", "CANGURU", "CAVALO", "COBRA",
+                    "CROCODILO", "ELEFANTE", "FALCAO", "FLAMINGO", "FORMIGA", "GATO", "GIRAFA", "GOLFINHO", "HIPOPOTAMO", "JACARE",
+                    "LEMURE", "LEAO", "LOBO", "MACACO", "PINGUIM", "PEIXE", "RINOCERONTE", "TARTARUGA", "TIGRE", "URSO", "ZEBRA"
+                };
+
+        public string[] paises = { "AFEGANISTAO", "ALEMANHA", "ANGOLA", "ARGENTINA", "AUSTRALIA", "BRASIL", "CANADA", "CHINA", "EGITO",
+                    "ESPANHA", "ESTADOS UNIDOS", "FRANCA", "GRECIA", "INDIA", "INDONESIA", "IRA", "ITALIA", "JAPAO", "MEXICO", "MOCAMBIQUE",
+                    "NIGERIA", "NOVA ZELANDIA", "PAQUISTAO", "PERU", "PORTUGAL", "REINO UNIDO", "RUSSIA", "SUECIA", "TAILANDIA", "TURQUIA"
+                };
+    }
     public class Exibir
     {
         public static int qtdErros;
@@ -90,20 +107,7 @@ namespace jogoDaForca.ConsoleApp
                 else if (metodoCategoriaPalavra == 'A') categoria = "Animal";
                 else categoria = "País";
 
-                string[] frutas = { "ABACATE", "ABACAXI", "ACEROLA", "ACAI", "ARACA", "BACABA", "BACURI", "BANANA",
-                    "CAJA", "CAJU", "CARAMBOLA", "CUPUACU", "GRAVIOLA", "GOIABA", "JABUTICABA", "JENIPAPO",
-                    "MACA", "MANGABA", "MANGA", "MARACUJA", "MURICI", "PEQUI", "PITANGA", "PITAYA", "SAPOTI", "TANGERINA", "UMBU", "UVA", "UVAIA"
-                };
-
-                string[] animais = { "ABELHA", "AGUIA", "ARANHA", "ARRAIA", "BALEIA", "CACHORRO", "CANGURU", "CAVALO", "COBRA",
-                    "CROCODILO", "ELEFANTE", "FALCAO", "FLAMINGO", "FORMIGA", "GATO", "GIRAFA", "GOLFINHO", "HIPOPOTAMO", "JACARE",
-                    "LEMURE", "LEAO", "LOBO", "MACACO", "PINGUIM", "PEIXE", "RINOCERONTE", "TARTARUGA", "TIGRE", "URSO", "ZEBRA"
-                };
-
-                string[] paises = { "AFEGANISTAO", "ALEMANHA", "ANGOLA", "ARGENTINA", "AUSTRALIA", "BRASIL", "CANADA", "CHINA", "EGITO",
-                    "ESPANHA", "ESTADOS UNIDOS", "FRANCA", "GRECIA", "INDIA", "INDONESIA", "IRA", "ITALIA", "JAPAO", "MEXICO", "MOCAMBIQUE",
-                    "NIGERIA", "NOVA ZELANDIA", "PAQUISTAO", "PERU", "PORTUGAL", "REINO UNIDO", "RUSSIA", "SUECIA", "TAILANDIA", "TURQUIA"
-                };
+                Categorias categorias = new Categorias();
 
                 Random geradorDePalavras = new Random();
                 int indiceAleatorio = 0;
@@ -111,18 +115,18 @@ namespace jogoDaForca.ConsoleApp
 
                 if (categoria == "Fruta")
                 {
-                    indiceAleatorio = geradorDePalavras.Next(frutas.Length);
-                    palavraSecreta = frutas[indiceAleatorio];
+                    indiceAleatorio = geradorDePalavras.Next(categorias.frutas.Length);
+                    palavraSecreta = categorias.frutas[indiceAleatorio];
                 }
                 else if (categoria == "Animal")
                 {
-                    indiceAleatorio = geradorDePalavras.Next(animais.Length);
-                    palavraSecreta = animais[indiceAleatorio];
+                    indiceAleatorio = geradorDePalavras.Next(categorias.animais.Length);
+                    palavraSecreta = categorias.animais[indiceAleatorio];
                 }
                 else
                 {
-                    indiceAleatorio = geradorDePalavras.Next(paises.Length);
-                    palavraSecreta = paises[indiceAleatorio];
+                    indiceAleatorio = geradorDePalavras.Next(categorias.paises.Length);
+                    palavraSecreta = categorias.paises[indiceAleatorio];
                 }
 
                 int totalTentativas = 5;
