@@ -14,8 +14,7 @@ namespace jogoDaForca.ConsoleApp
                     "LEMURE", "LEAO", "LOBO", "MACACO", "PINGUIM", "PEIXE", "RINOCERONTE", "TARTARUGA", "TIGRE", "URSO", "ZEBRA"
                 };
 
-        public string[] paises = { "AFEGANISTAO", "ALEMANHA", "ANGOLA", "ARGENTINA", "AUSTRALIA", "BRASIL", "CANADA", "CHINA", "EGITO",
-                    "ESPANHA", "ESTADOS UNIDOS", "FRANCA", "GRECIA", "INDIA", "INDONESIA", "IRA", "ITALIA", "JAPAO", "MEXICO", "MOCAMBIQUE",
+        public string[] paises = { "ESTADOS UNIDOS", "FRANCA", "GRECIA", "INDIA", "INDONESIA", "IRA", "ITALIA", "JAPAO", "MEXICO", "MOCAMBIQUE",
                     "NIGERIA", "NOVA ZELANDIA", "PAQUISTAO", "PERU", "PORTUGAL", "REINO UNIDO", "RUSSIA", "SUECIA", "TAILANDIA", "TURQUIA"
                 };
     }
@@ -180,10 +179,7 @@ namespace jogoDaForca.ConsoleApp
 
         public static void TentarPalavra(string chuteUsuario)
         {
-            if (chuteUsuario == palavraSecreta)
-            {
-                jogadorAcertou = true;
-            }
+            if (chuteUsuario.Replace(" ", "") == palavraSecreta.Replace(" ", "")) jogadorAcertou = true;
             else
             {
                 Console.WriteLine("Você errou a palavra inteira!");
@@ -203,14 +199,15 @@ namespace jogoDaForca.ConsoleApp
                 Palavra.EscolherPalavra();
                 Array.Clear(Palavra.chutesRealizados, 0, Palavra.chutesRealizados.Length);
                 Palavra.jogadorAcertou = false;
-
                 Exibir.totalTentativas = 6;
                 Palavra.contadorChutes = 0;
 
                 Exibir.letrasEncontradas = new char[Palavra.palavraSecreta.Length];
                 for (int i = 0; i < Exibir.letrasEncontradas.Length; i++)
-                    Exibir.letrasEncontradas[i] = '_';
-
+                {
+                    if (Palavra.palavraSecreta[i] == ' ') Exibir.letrasEncontradas[i] = ' ';
+                    else Exibir.letrasEncontradas[i] = '_';
+                }
                 Exibir.qtdErros = 0;
                 bool jogadorEnforcou = false;
 
@@ -232,7 +229,6 @@ namespace jogoDaForca.ConsoleApp
                 while (Palavra.jogadorAcertou == false && jogadorEnforcou == false);
 
                 string opcaoContinuar = Exibir.DesejaContinuar();
-
                 if (opcaoContinuar != "S") break;
                 continue;
             }
