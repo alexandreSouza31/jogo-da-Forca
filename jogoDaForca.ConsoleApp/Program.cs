@@ -63,6 +63,23 @@ namespace jogoDaForca.ConsoleApp
             if (opcaoContinuar.Length == 0) ;
             return opcaoContinuar;
         }
+
+        public static void MensagemFinal(bool jogadorEnforcou)
+        {
+            if (Palavra.jogadorAcertou)
+            {
+                Console.WriteLine("----------------------------------------------");
+                Console.WriteLine($"Conseguiu! A palavra secreta era {Palavra.palavraSecreta}, parabéns!");
+                Console.WriteLine("----------------------------------------------");
+            }
+            else if (jogadorEnforcou)
+            {
+                Exibir.CabecalhoJogo();
+                Console.WriteLine("Você perdeu! A palavra era " + Palavra.palavraSecreta);
+                Console.WriteLine("Tente Novamente!");
+                Console.ReadLine();
+            }
+        }
     }
 
     public class Palavra
@@ -206,27 +223,11 @@ namespace jogoDaForca.ConsoleApp
                     string chuteUsuario = Console.ReadLine().ToUpper();
                     if (string.IsNullOrWhiteSpace(chuteUsuario)) continue;
 
-                    if (chuteUsuario.Length == 1)
-                        Palavra.TentarLetra(chuteUsuario);
-                    else
-                        Palavra.TentarPalavra(chuteUsuario);
+                    if (chuteUsuario.Length == 1) Palavra.TentarLetra(chuteUsuario);
+                    else Palavra.TentarPalavra(chuteUsuario);
 
                     jogadorEnforcou = Exibir.qtdErros >= Exibir.totalTentativas;
-
-                    if (Palavra.jogadorAcertou)
-                    {
-                        Console.WriteLine("----------------------------------------------");
-                        Console.WriteLine($"Conseguiu! A palavra secreta era {Palavra.palavraSecreta}, parabéns!");
-                        Console.WriteLine("----------------------------------------------");
-                    }
-                    else if (jogadorEnforcou)
-                    {
-                        Exibir.CabecalhoJogo();
-                        Console.WriteLine("Você perdeu! A palavra era " + Palavra.palavraSecreta);
-                        Console.WriteLine("Tente Novamente!");
-                        Console.ReadLine();
-                    }
-
+                    Exibir.MensagemFinal(jogadorEnforcou);
                 }
                 while (Palavra.jogadorAcertou == false && jogadorEnforcou == false);
 
