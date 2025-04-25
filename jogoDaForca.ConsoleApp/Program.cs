@@ -198,7 +198,7 @@ namespace jogoDaForca.ConsoleApp
             {
                 Palavra.EscolherPalavra();
                 Array.Clear(Palavra.chutesRealizados, 0, Palavra.chutesRealizados.Length);
-                IniciarRodada();
+                PrepararRodada();
 
                 bool jogadorEnforcou = false;
 
@@ -225,7 +225,7 @@ namespace jogoDaForca.ConsoleApp
             }
         }
 
-        static void IniciarRodada()
+        static void PrepararRodada()
         {
             Palavra.jogadorAcertou = false;
             Exibir.totalTentativas = 6;
@@ -240,5 +240,6 @@ namespace jogoDaForca.ConsoleApp
             }
         }
 
+        static void 
     }
 }
