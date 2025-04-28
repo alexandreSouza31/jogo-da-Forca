@@ -46,10 +46,14 @@
 
         public static string DesejaContinuar()
         {
-            Console.Write("Deseja continuar? (S/N): ");
+            string opcaoContinuar = "";
 
-            string opcaoContinuar = Console.ReadLine()!.ToUpper();
-            if (opcaoContinuar.Length == 0) ;
+            do
+            {
+                Console.Write("Deseja continuar? (S/N): ");
+                opcaoContinuar = Console.ReadLine()!.Trim().ToUpper();
+            } while (opcaoContinuar != "S" && opcaoContinuar != "N");
+
             return opcaoContinuar;
         }
 
