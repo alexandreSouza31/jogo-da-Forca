@@ -12,7 +12,8 @@
             Console.WriteLine($"              {nomeJogo}");
             Console.WriteLine("----------------------------------------------");
         }
-        public static void CabecalhoJogo(Jogador jogador)
+
+        public static void BonecoForca(Jogador jogador)
         {
             string cabecaDoBoneco = jogador.qtdErros >= 1 ? " O " : " ";
             string tronco = jogador.qtdErros >= 2 ? "x" : " ";
@@ -21,9 +22,6 @@
             string bracoDireito = jogador.qtdErros >= 4 ? @"\" : " ";
             string pernas = jogador.qtdErros >= jogador.totalTentativas ? "/ \\" : " ";
 
-            Console.Clear();
-            NomeDoJogo();
-            Console.WriteLine($"Jogador:{jogador.nome}");
             Console.WriteLine(" ___________        ");
             Console.WriteLine(" |/        |        ");
             Console.WriteLine(" |        {0}       ", cabecaDoBoneco);
@@ -32,6 +30,13 @@
             Console.WriteLine(" |        {0}       ", pernas);
             Console.WriteLine(" |                  ");
             Console.WriteLine(" |                  ");
+        }
+        public static void CabecalhoJogo(Jogador jogador)
+        {
+            Console.Clear();
+            NomeDoJogo();
+            Console.WriteLine($"Jogador:{jogador.nome}");
+            BonecoForca(jogador);
             Console.WriteLine($" |{String.Join(' ', letrasEncontradas)} | {letrasEncontradas.Length} letras");
             Console.WriteLine($"\nErros do jogador: {jogador.qtdErros} de {jogador.totalTentativas}");
             Console.WriteLine("\nHistórico de tentativas: " + jogador.historicoChutesJoin);
