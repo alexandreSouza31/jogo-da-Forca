@@ -31,10 +31,16 @@ namespace jogoDaForca.ConsoleApp
     }
     public class Exibir
     {
-
+        public static string nomeJogo = "Jogo da Forca";
         public static char[] letrasEncontradas;
         public static string categoria;
 
+        public static void NomeDoJogo()
+        {
+            Console.WriteLine("----------------------------------------------");
+            Console.WriteLine($"              {nomeJogo}");
+            Console.WriteLine("----------------------------------------------");
+        }
         public static void CabecalhoJogo(Jogador jogador)
         {
             string cabecaDoBoneco = jogador.qtdErros >= 1 ? " O " : " ";
@@ -45,9 +51,7 @@ namespace jogoDaForca.ConsoleApp
             string pernas = jogador.qtdErros >= jogador.totalTentativas ? "/ \\" : " ";
 
             Console.Clear();
-            Console.WriteLine("----------------------------------------------");
-            Console.WriteLine("              Jogo da Forca");
-            Console.WriteLine("----------------------------------------------");
+            NomeDoJogo();
             Console.WriteLine($"Jogador:{jogador.nome}");
             Console.WriteLine(" ___________        ");
             Console.WriteLine(" |/        |        ");
@@ -100,9 +104,7 @@ namespace jogoDaForca.ConsoleApp
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("----------------------------------------------");
-                Console.WriteLine("              Jogo da Forca");
-                Console.WriteLine("----------------------------------------------");
+                Exibir.NomeDoJogo();
                 Console.WriteLine("Escolha uma categoria de palavra:");
                 Console.WriteLine("F - Frutas");
                 Console.WriteLine("A - Animais");
