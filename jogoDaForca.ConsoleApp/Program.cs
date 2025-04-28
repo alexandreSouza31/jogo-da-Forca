@@ -20,11 +20,11 @@ namespace jogoDaForca.ConsoleApp
                     jogadores[i].nome = Console.ReadLine()!;
                 }
 
-                Palavra.SortearPalavra(jogadores[0]);
+                Palavra.Sortear(jogadores[0]);
 
                 for (int i = 0; i < jogadores.Length; i++)
                 {
-                    Jogar.PrepararRodada(jogadores[i]);
+                    Jogar.PrepararPartida(jogadores[i]);
                 }
 
                 Jogar.IniciarPartida(jogadores);

@@ -29,7 +29,7 @@
             }
         }
 
-        public static void SortearPalavra(Jogador jogador)
+        public static void Sortear(Jogador jogador)
         {
             char metodoCategoriaPalavra = EscolherCategoria(jogador);
 

@@ -2,7 +2,7 @@
 {
     public class Jogar
     {
-        public static void PrepararRodada(Jogador jogador)
+        public static void PrepararPartida(Jogador jogador)
         {
             jogador.jogadorAcertou = false;
             jogador.totalTentativas = 6;
@@ -21,15 +21,15 @@
         {
             bool palavraEncontrada = false;
             bool todosEnforcados = false;
-            int jogadorAtualIndex = 0;
+            int indiceJogadorAtual = 0;
 
             do
             {
-                Jogador jogadorAtual = jogadores[jogadorAtualIndex];
+                Jogador jogadorAtual = jogadores[indiceJogadorAtual];
 
                 if (jogadorAtual.qtdErros >= jogadorAtual.totalTentativas)
                 {
-                    jogadorAtualIndex = (jogadorAtualIndex + 1) % jogadores.Length;
+                    indiceJogadorAtual = (indiceJogadorAtual + 1) % jogadores.Length;
                     continue;
                 }
 
@@ -59,7 +59,7 @@
                     }
                 }
 
-                jogadorAtualIndex = (jogadorAtualIndex + 1) % jogadores.Length;
+                indiceJogadorAtual = (indiceJogadorAtual + 1) % jogadores.Length;
 
             } while (!palavraEncontrada && !todosEnforcados);
         }
