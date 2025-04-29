@@ -57,6 +57,11 @@
             return opcaoContinuar;
         }
 
+        public static void DigitarEnter()
+        {
+            Console.Write("Digite [Enter] para continuar:");
+            Console.ReadLine();
+        }
         public static void MensagemFinal(Jogador jogador, bool jogadorEnforcou, bool todosEnforcados)
         {
             if (jogador.jogadorAcertou)
@@ -65,21 +70,18 @@
                 Console.WriteLine("----------------------------------------------");
                 Console.WriteLine($"Conseguiu, {jogador.nome}! A palavra secreta era {Palavra.palavraSecreta}, parabéns!");
                 Console.WriteLine("----------------------------------------------");
-                Console.Write("Digite [Enter] para continuar:");
-                Console.ReadLine();
+                DigitarEnter();
             }
             else if (todosEnforcados == true)
             {
                 Console.WriteLine($"Fim de jogo! A palavra era {Palavra.palavraSecreta}");
                 Console.WriteLine("Tente Novamente!");
-                Console.Write("Digite [Enter] para continuar:");
-                Console.ReadLine();
+                DigitarEnter();
             }
             else if (jogadorEnforcou)
             {
                 Console.WriteLine($"Você perdeu, {jogador.nome}!");
-                Console.Write("Digite [Enter] para continuar:");
-                Console.ReadLine();
+                DigitarEnter();
             }
         }
     }

@@ -24,8 +24,8 @@
                 {
                     return categoriaPalavra;
                 }
-                Console.Write("Escolha uma categoria válida! Pressione Enter para tentar novamente.");
-                Console.ReadLine();
+                Console.Write("Escolha uma categoria válida!");
+                Exibir.DigitarEnter();
             }
         }
 
@@ -57,15 +57,13 @@
             if (Array.Exists(jogador.chutesRealizados, n => n == chute.ToString()) && !Palavra.palavraSecreta.Contains(chute))
             {
                 Console.WriteLine($"\n{chute} já foi digitado, e é diferente do sorteado!", "\n");
-                Console.Write("Digite [Enter] para continuar:");
-                Console.ReadLine();
+                Exibir.DigitarEnter();
                 return;
             }
             else if (Array.Exists(jogador.chutesRealizados, n => n == chute.ToString()) && Palavra.palavraSecreta.Contains(chute))
             {
                 Console.WriteLine($"\n{chute} já foi digitado, e está na palavra!Digite outra letra!", "\n");
-                Console.Write("Digite [Enter] para continuar:");
-                Console.ReadLine();
+                Exibir.DigitarEnter();
             }
 
             jogador.chutesRealizados[jogador.contadorChutes++] = chute.ToString();
@@ -98,8 +96,7 @@
             {
                 Console.WriteLine($"Você errou a palavra inteira, {jogador.nome}!");
                 jogador.qtdErros++;
-                Console.Write("Digite [Enter] para continuar:");
-                Console.ReadLine();
+                Exibir.DigitarEnter();
             }
         }
     }
