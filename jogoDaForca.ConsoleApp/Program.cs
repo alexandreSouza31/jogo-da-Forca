@@ -8,17 +8,7 @@ namespace jogoDaForca.ConsoleApp
         {
             while (true)
             {
-                Console.Write("Quantos jogadores vão jogar? ");
-                int numeroJogadores = int.Parse(Console.ReadLine()!);
-
-                Jogador[] jogadores = new Jogador[numeroJogadores];
-
-                for (int i = 0; i < numeroJogadores; i++)
-                {
-                    jogadores[i] = new Jogador();
-                    Console.Write($"Digite o nome do jogador {i + 1}: ");
-                    jogadores[i].nome = Console.ReadLine()!;
-                }
+                Jogador[] jogadores = Jogador.DefinirJogadores();
 
                 Jogar.palavra.Sortear();
 
