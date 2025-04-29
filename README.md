@@ -21,21 +21,21 @@ Neste jogo, o computador sorteará uma palavra secreta de uma categoria específ
 ![image](https://i.imgur.com/5rG2s3X.gif)
 
 ### Funcionalidades✅ 
-- Sorteio aleatório de palavras dentro de três categorias:
-
-    - Frutas
-
-    - Animais
-
-    - Países
-
-- Exibição do estado atual da forca conforme os erros acumulam
-
-- Histórico de tentativas exibido ao jogador
-
-- Possibilidade de chutar a palavra completa
-
-- O jogador pode tentar novamente após uma partida
+- Suporte a múltiplos jogadores.
+- Sorteio aleatório de palavras em três categorias:
+  - Frutas
+  - Animais
+  - Países
+- Exibição gráfica da forca montando a cada erro.
+- Histórico de tentativas exibido para cada jogador, incluindo:
+  - Letras já tentadas.
+  - Palavras inteiras já chutadas.
+- Tentativa de acertar a palavra completa.
+- Mensagem individual para jogadores eliminados.
+- Fim de jogo automático ao:
+  - Acertar a palavra.
+  - Todos os jogadores serem eliminados.
+- Opção de jogar novas partidas após o término.
 
 
 
@@ -47,7 +47,12 @@ Neste jogo, o computador sorteará uma palavra secreta de uma categoria específ
 ### Estrutura do projeto 📁
 ```
 ├── jogoDaForca.ConsoleApp
-│   └── Program.cs
+│   ├── Program.cs
+│   ├── Jogar.cs
+│   ├── Jogador.cs
+│   ├── Palavra.cs
+│   ├── Categorias.cs
+│   ├── Exibir.cs
 ├── .gitignore
 ├── jogoDaForca.sln
 └── README.md
