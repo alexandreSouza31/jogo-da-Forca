@@ -12,6 +12,7 @@
 
         public static Jogador[] DefinirJogadores()
         {
+            Console.Clear();
             Exibir.NomeDoJogo();
             Console.Write("Quantos jogadores vão jogar? ");
             int numeroJogadores = int.Parse(Console.ReadLine()!);
