@@ -91,6 +91,7 @@
 
         public void TentarPalavra(Jogador jogador, string chuteUsuario)
         {
+            jogador.chutesRealizados[jogador.contadorChutes++] = chuteUsuario;
             if (chuteUsuario.Replace(" ", "") == Palavra.palavraSecreta.Replace(" ", "")) jogador.jogadorAcertou = true;
             else
             {
