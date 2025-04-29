@@ -61,19 +61,24 @@
         {
             if (jogador.jogadorAcertou)
             {
+                CabecalhoJogo(jogador);
                 Console.WriteLine("----------------------------------------------");
                 Console.WriteLine($"Conseguiu, {jogador.nome}! A palavra secreta era {Palavra.palavraSecreta}, parabéns!");
                 Console.WriteLine("----------------------------------------------");
+                Console.Write("Digite [Enter] para continuar:");
+                Console.ReadLine();
             }
             else if (todosEnforcados == true)
             {
                 Console.WriteLine($"Fim de jogo! A palavra era {Palavra.palavraSecreta}");
                 Console.WriteLine("Tente Novamente!");
+                Console.Write("Digite [Enter] para continuar:");
                 Console.ReadLine();
             }
             else if (jogadorEnforcou)
             {
                 Console.WriteLine($"Você perdeu, {jogador.nome}!");
+                Console.Write("Digite [Enter] para continuar:");
                 Console.ReadLine();
             }
         }
