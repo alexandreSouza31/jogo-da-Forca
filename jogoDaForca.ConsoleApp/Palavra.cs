@@ -4,7 +4,7 @@
     {
         public static string palavraSecreta;
 
-        public static char EscolherCategoria(Jogador jogador)
+        public char EscolherCategoria()
         {
             while (true)
             {
@@ -29,9 +29,9 @@
             }
         }
 
-        public static void Sortear(Jogador jogador)
+        public void Sortear()
         {
-            char metodoCategoriaPalavra = EscolherCategoria(jogador);
+            char metodoCategoriaPalavra = EscolherCategoria();
 
             if (metodoCategoriaPalavra == 'F') Exibir.categoria = "Fruta";
             else if (metodoCategoriaPalavra == 'A') Exibir.categoria = "Animal";
@@ -50,18 +50,18 @@
                 palavraSecreta = categorias.paises[geradorDePalavras.Next(categorias.paises.Length)];
         }
 
-        public static void TentarLetra(Jogador jogador, string chuteUsuario)
+        public  void TentarLetra(Jogador jogador, string chuteUsuario)
         {
             char chute = chuteUsuario[0];
 
-            if (Array.Exists(jogador.chutesRealizados, n => n == chute.ToString()) && !palavraSecreta.Contains(chute))
+            if (Array.Exists(jogador.chutesRealizados, n => n == chute.ToString()) && !Palavra.palavraSecreta.Contains(chute))
             {
                 Console.WriteLine($"\n{chute} já foi digitado, e é diferente do sorteado!", "\n");
                 Console.Write("Digite [Enter] para continuar:");
                 Console.ReadLine();
                 return;
             }
-            else if (Array.Exists(jogador.chutesRealizados, n => n == chute.ToString()) && palavraSecreta.Contains(chute))
+            else if (Array.Exists(jogador.chutesRealizados, n => n == chute.ToString()) && Palavra.palavraSecreta.Contains(chute))
             {
                 Console.WriteLine($"\n{chute} já foi digitado, e está na palavra!Digite outra letra!", "\n");
                 Console.Write("Digite [Enter] para continuar:");
@@ -72,9 +72,9 @@
 
             bool letraFoiEncontrada = false;
 
-            for (int contador = 0; contador < palavraSecreta.Length; contador++)
+            for (int contador = 0; contador < Palavra.palavraSecreta.Length; contador++)
             {
-                char letraAtual = palavraSecreta[contador];
+                char letraAtual = Palavra.palavraSecreta[contador];
 
                 if (chute == letraAtual)
                 {
@@ -91,12 +91,12 @@
             }
         }
 
-        public static void TentarPalavra(Jogador jogador, string chuteUsuario)
+        public void TentarPalavra(Jogador jogador, string chuteUsuario)
         {
-            if (chuteUsuario.Replace(" ", "") == palavraSecreta.Replace(" ", "")) jogador.jogadorAcertou = true;
+            if (chuteUsuario.Replace(" ", "") == Palavra.palavraSecreta.Replace(" ", "")) jogador.jogadorAcertou = true;
             else
             {
-                Console.WriteLine("Você errou a palavra inteira!");
+                Console.WriteLine($"Você errou a palavra inteira, {jogador.nome}!");
                 jogador.qtdErros++;
                 Console.Write("Digite [Enter] para continuar:");
                 Console.ReadLine();

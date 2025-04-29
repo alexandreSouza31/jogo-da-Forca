@@ -57,7 +57,7 @@
             return opcaoContinuar;
         }
 
-        public static void MensagemFinal(Jogador jogador, bool jogadorEnforcou)
+        public static void MensagemFinal(Jogador jogador, bool jogadorEnforcou, bool todosEnforcados)
         {
             if (jogador.jogadorAcertou)
             {
@@ -65,11 +65,15 @@
                 Console.WriteLine($"Conseguiu, {jogador.nome}! A palavra secreta era {Palavra.palavraSecreta}, parabéns!");
                 Console.WriteLine("----------------------------------------------");
             }
+            else if (todosEnforcados == true)
+            {
+                Console.WriteLine($"Fim de jogo! A palavra era {Palavra.palavraSecreta}");
+                Console.WriteLine("Tente Novamente!");
+                Console.ReadLine();
+            }
             else if (jogadorEnforcou)
             {
-                Exibir.CabecalhoJogo(jogador);
-                Console.WriteLine($"Você perdeu, {jogador.nome}! A palavra era {Palavra.palavraSecreta}");
-                Console.WriteLine("Tente Novamente!");
+                Console.WriteLine($"Você perdeu, {jogador.nome}!");
                 Console.ReadLine();
             }
         }

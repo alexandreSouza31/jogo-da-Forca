@@ -20,7 +20,7 @@ namespace jogoDaForca.ConsoleApp
                     jogadores[i].nome = Console.ReadLine()!;
                 }
 
-                Palavra.Sortear(jogadores[0]);
+                Jogar.palavra.Sortear();
 
                 for (int i = 0; i < jogadores.Length; i++)
                 {

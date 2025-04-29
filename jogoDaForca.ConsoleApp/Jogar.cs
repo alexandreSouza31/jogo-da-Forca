@@ -2,6 +2,7 @@
 {
     public class Jogar
     {
+        public static Palavra palavra = new Palavra();
         public static void PrepararPartida(Jogador jogador)
         {
             jogador.jogadorAcertou = false;
@@ -23,11 +24,13 @@
             bool todosEnforcados = false;
             int indiceJogadorAtual = 0;
 
+            bool[] jogadoresEliminados = new bool[jogadores.Length];
+
             do
             {
                 Jogador jogadorAtual = jogadores[indiceJogadorAtual];
 
-                if (jogadorAtual.qtdErros >= jogadorAtual.totalTentativas)
+                if (jogadoresEliminados[indiceJogadorAtual])
                 {
                     indiceJogadorAtual = (indiceJogadorAtual + 1) % jogadores.Length;
                     continue;
@@ -41,22 +44,32 @@
                 if (string.IsNullOrWhiteSpace(chuteUsuario)) continue;
 
                 if (chuteUsuario.Length == 1)
-                    Palavra.TentarLetra(jogadorAtual, chuteUsuario);
+                    palavra.TentarLetra(jogadorAtual, chuteUsuario);
                 else
-                    Palavra.TentarPalavra(jogadorAtual, chuteUsuario);
+                    palavra.TentarPalavra(jogadorAtual, chuteUsuario);
 
                 palavraEncontrada = jogadorAtual.jogadorAcertou;
 
-                Exibir.MensagemFinal(jogadorAtual, jogadorAtual.qtdErros >= jogadorAtual.totalTentativas);
-
-                todosEnforcados = true;
-                for (int i = 0; i < jogadores.Length; i++)
+                if (palavraEncontrada)
                 {
-                    if (jogadores[i].qtdErros < jogadores[i].totalTentativas)
-                    {
-                        todosEnforcados = false;
-                        break;
-                    }
+                    Exibir.MensagemFinal(jogadorAtual, false, false);
+                    break;
+                }
+
+                if (jogadorAtual.qtdErros >= jogadorAtual.totalTentativas)
+                {
+                    jogadoresEliminados[indiceJogadorAtual] = true;
+
+                    Exibir.MensagemFinal(jogadorAtual, true, false);
+                }
+
+                todosEnforcados = jogadores.All(j => j.qtdErros >= j.totalTentativas);
+                if (todosEnforcados)
+                {
+                    Console.Clear();
+                    Exibir.CabecalhoJogo(jogadorAtual);
+                    Exibir.MensagemFinal(jogadorAtual, true, true);
+                    break;
                 }
 
                 indiceJogadorAtual = (indiceJogadorAtual + 1) % jogadores.Length;
